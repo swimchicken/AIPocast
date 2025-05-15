@@ -14,6 +14,7 @@
 		790DD1932DC4CB4300FDFC6D /* AIPodcast01Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD1922DC4CB4300FDFC6D /* AIPodcast01Tests.swift */; };
 		790DD19D2DC4CB4300FDFC6D /* AIPodcast01UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD19C2DC4CB4300FDFC6D /* AIPodcast01UITests.swift */; };
 		790DD19F2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD19E2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift */; };
+		EBD646F72DCEFCFC00A1EE1F /* p40.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD646F62DCEFCED00A1EE1F /* p40.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		790DD1982DC4CB4300FDFC6D /* AIPodcast01UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIPodcast01UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		790DD19C2DC4CB4300FDFC6D /* AIPodcast01UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPodcast01UITests.swift; sourceTree = "<group>"; };
 		790DD19E2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPodcast01UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EBD646F62DCEFCED00A1EE1F /* p40.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = p40.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		790DD1802DC4CB4100FDFC6D /* AIPodcast01 */ = {
 			isa = PBXGroup;
 			children = (
+				EBD646F62DCEFCED00A1EE1F /* p40.swift */,
 				790DD1812DC4CB4100FDFC6D /* AIPodcast01App.swift */,
 				790DD1832DC4CB4100FDFC6D /* ContentView.swift */,
 				790DD1852DC4CB4300FDFC6D /* Assets.xcassets */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				790DD1842DC4CB4100FDFC6D /* ContentView.swift in Sources */,
+				EBD646F72DCEFCFC00A1EE1F /* p40.swift in Sources */,
 				790DD1822DC4CB4100FDFC6D /* AIPodcast01App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
