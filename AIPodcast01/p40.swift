@@ -1,5 +1,9 @@
 import SwiftUI
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 struct NewsCategory: Identifiable, Hashable {
     let id = UUID()
     var text: String
@@ -93,238 +97,272 @@ struct p40: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
-            VStack(spacing: 0) {
-                // Progress bar
-                HStack(spacing: 8) {
-                    // 橘色邊框未填充的進度條
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.orange, lineWidth: 1.5)
-                        .frame(height: 4)
-                        .frame(maxWidth: .infinity)
-                    
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 4)
-                        .frame(maxWidth: .infinity)
-                    
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 4)
-                        .frame(maxWidth: .infinity)
-                    
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 4)
-                        .frame(maxWidth: .infinity)
-                    
-                    // 最右側帶勾號的灰色圓圈
-                    ZStack {
-                        Circle()
+        NavigationView {
+            ZStack {
+                Color.black.ignoresSafeArea()
+                VStack(spacing: 0) {
+                    // Progress bar
+                    HStack(spacing: 8) {
+                        // 橘色邊框未填充的進度條
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.orange, lineWidth: 1.5)
+                            .frame(height: 4)
+                            .frame(maxWidth: .infinity)
+                        
+                        RoundedRectangle(cornerRadius: 8)
                             .fill(Color.gray.opacity(0.3))
-                            .frame(width: 16, height: 16)
+                            .frame(height: 4)
+                            .frame(maxWidth: .infinity)
                         
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 8, weight: .bold))
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.top, 32)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    // Title
-                    Text("以下為根據調查所關對的新聞")
-                        .foregroundColor(.white)
-                        .font(.system(size: 14))
-                    
-                    Text("請標註你喜歡的新聞")
-                        .foregroundColor(.white)
-                        .font(.system(size: 28, weight: .bold))
-                    
-                    // 主題標籤和關注點並排放置
-                    HStack(spacing: 7) {
-                        // 主題標籤區塊 - 可左右滑動
-                        VStack(alignment: .leading, spacing: 7) {
-                            Text("主題標籤")
-                                .foregroundColor(.white.opacity(0.7))
-                                .font(.system(size: 11))
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 4)
+                            .frame(maxWidth: .infinity)
+                        
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 4)
+                            .frame(maxWidth: .infinity)
+                        
+                        // 最右側帶勾號的灰色圓圈
+                        ZStack {
+                            Circle()
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 16, height: 16)
                             
-                            // 可滑動的主題標籤
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 10) {
-                                    ForEach($categories) { $category in
-                                        Button(action: {
-                                            // 切換分類標籤選中狀態
-                                            category.isSelected.toggle()
-                                        }) {
-                                            Text(category.text)
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 20, weight: .medium))
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 8)
-                                                .background(
-                                                    category.isSelected ?
-                                                    Color.orange : Color.gray.opacity(0.3)
-                                                )
-                                                .cornerRadius(8)
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 8, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.top, 32)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        // Title
+                        Text("以下為根據調查所關對的新聞")
+                            .foregroundColor(.white)
+                            .font(.system(size: 14))
+                        
+                        Text("請標註你喜歡的新聞")
+                            .foregroundColor(.white)
+                            .font(.system(size: 28, weight: .bold))
+                        
+                        // 主題標籤和關注點並排放置
+                        HStack(spacing: 7) {
+                            // 主題標籤區塊 - 可左右滑動
+                            VStack(alignment: .leading, spacing: 7) {
+                                Text("主題標籤")
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .font(.system(size: 11))
+                                
+                                // 可滑動的主題標籤
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        ForEach($categories) { $category in
+                                            Button(action: {
+                                                // 切換分類標籤選中狀態
+                                                category.isSelected.toggle()
+                                            }) {
+                                                Text(category.text)
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 20, weight: .medium))
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 8)
+                                                    .background(
+                                                        category.isSelected ?
+                                                        Color.orange : Color.gray.opacity(0.3)
+                                                    )
+                                                    .cornerRadius(8)
+                                            }
                                         }
                                     }
+                                    .padding(.vertical, 6)
                                 }
-                                .padding(.vertical, 6)
                             }
-                        }
-                        .padding(8)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(8)
-                        
-                        // 關注點區塊 - 可左右滑動和選取
-                        VStack(alignment: .leading, spacing: 7) {
-                            Text("關注點")
-                                .foregroundColor(.white.opacity(0.7))
-                                .font(.system(size: 11))
+                            .padding(8)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(8)
                             
-                            // 可滑動的關注點標籤，現在可以選取
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 10) {
-                                    ForEach($focusPoints) { $focusPoint in
-                                        Button(action: {
-                                            // 切換關注點標籤選中狀態
-                                            focusPoint.isSelected.toggle()
-                                        }) {
-                                            Text(focusPoint.text)
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 20, weight: .medium))
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 8)
-                                                .background(
-                                                    focusPoint.isSelected ?
-                                                    Color.orange : Color.gray.opacity(0.3)
-                                                )
-                                                .cornerRadius(8)
+                            // 關注點區塊 - 可左右滑動和選取
+                            VStack(alignment: .leading, spacing: 7) {
+                                Text("關注點")
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .font(.system(size: 11))
+                                
+                                // 可滑動的關注點標籤，現在可以選取
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        ForEach($focusPoints) { $focusPoint in
+                                            Button(action: {
+                                                // 切換關注點標籤選中狀態
+                                                focusPoint.isSelected.toggle()
+                                            }) {
+                                                Text(focusPoint.text)
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 20, weight: .medium))
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 8)
+                                                    .background(
+                                                        focusPoint.isSelected ?
+                                                        Color.orange : Color.gray.opacity(0.3)
+                                                    )
+                                                    .cornerRadius(8)
+                                            }
                                         }
                                     }
+                                    .padding(.vertical, 6)
                                 }
-                                .padding(.vertical, 6)
                             }
-                        }
-                        .padding(8)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(8)
-                    }
-                    
-                    // 分段進度條顯示已選擇的新聞數量
-                    HStack(spacing: 4) {
-                        // 使用 HStack 顯示 20 個小方塊，每個代表一個可選的新聞
-                        HStack(spacing: 0) {
-                            ForEach(0..<maxSelectionCount, id: \.self) { index in
-                                // 如果索引小於已選擇的數量，顯示紅色，否則顯示灰色
-                                Rectangle()
-                                    .fill(index < likedNewsCount ? Color.red : Color.gray.opacity(0.3))
-                                    .frame(height: 4)
-                            }
+                            .padding(8)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(8)
                         }
                         
-                        Spacer()
-                        
-                        // 顯示 "02/20" 格式的計數
-                        HStack(spacing: 2) {
-                            Image(systemName: "heart")
-                                .foregroundColor(.red)
-                                .font(.system(size: 12))
+                        // 分段進度條顯示已選擇的新聞數量
+                        HStack(spacing: 4) {
+                            // 使用 HStack 顯示 20 個小方塊，每個代表一個可選的新聞
+                            HStack(spacing: 0) {
+                                ForEach(0..<maxSelectionCount, id: \.self) { index in
+                                    // 如果索引小於已選擇的數量，顯示紅色，否則顯示灰色
+                                    Rectangle()
+                                        .fill(index < likedNewsCount ? Color.red : Color.gray.opacity(0.3))
+                                        .frame(height: 4)
+                                }
+                            }
                             
-                            Text(String(format: "%02d/%02d", likedNewsCount, maxSelectionCount))
-                                .foregroundColor(.white.opacity(0.7))
-                                .font(.system(size: 12))
-                        }
-                    }
-                    .padding(.top, 16)
-                    .padding(.bottom, 8)
-                    
-                    // News List
-                    ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack(spacing: 8) {
-                            ForEach(filteredNews) { item in
-                                NewsItemRow(
-                                    newsItem: $newsItems[newsItems.firstIndex(where: { $0.id == item.id })!],
-                                    onDelete: { deleteNewsItem(item) },
-                                    maxSelectionCount: maxSelectionCount,
-                                    currentCount: likedNewsCount
-                                )
-                                .fixedSize(horizontal: false, vertical: true) // 允許高度自適應
+                            Spacer()
+                            
+                            // 顯示 "02/20" 格式的計數
+                            HStack(spacing: 2) {
+                                Image(systemName: "heart")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 12))
+                                
+                                Text(String(format: "%02d/%02d", likedNewsCount, maxSelectionCount))
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .font(.system(size: 12))
                             }
                         }
-                        .padding(.bottom, 8) // 底部間距
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
+                        
+                        // News List
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVStack(spacing: 8) {
+                                ForEach(filteredNews) { item in
+                                    NewsItemRow(
+                                        newsItem: $newsItems[newsItems.firstIndex(where: { $0.id == item.id })!],
+                                        onDelete: { deleteNewsItem(item) },
+                                        maxSelectionCount: maxSelectionCount,
+                                        currentCount: likedNewsCount
+                                    )
+                                    .fixedSize(horizontal: false, vertical: true) // 允許高度自適應
+                                }
+                            }
+                            .padding(.bottom, 8) // 底部間距
+                        }
                     }
-                }
-                .padding(.horizontal, 10)
-                
-                Spacer()
-                
-                // Bottom buttons
-                HStack {
-                    Button(action: {
-                        // 返回上一頁
-                        navigationState.goToPreviousPage()
-                    }) {
-                        Text("回上一步")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
-                            .padding(.vertical, 18)
-                            .padding(.horizontal, 24)
-                    }
+                    .padding(.horizontal, 10)
+                    
                     Spacer()
-                    Button(action: {
-                        // 檢查是否有選擇的新聞，如果有則進入下一頁
-                        if likedNewsCount > 0 {
-                            // 將喜歡的新聞保存到導航狀態
-                            navigationState.selectedNewsItems = newsItems.filter { $0.isLiked }
-                            navigationState.goToNextPage()
-                            navigateToNextScreen = true
-                        } else {
-                            // 顯示提示，要求選擇至少一則新聞
-                            alertMessage = "請至少選擇一則你喜歡的新聞"
-                            showAlert = true
-                        }
-                    }) {
-                        HStack(spacing: 8) {
-                            Text("下一步")
+                    
+                    // Bottom buttons
+                    HStack {
+                        Button(action: {
+                            // 返回上一頁
+                            navigationState.goToPreviousPage()
+                        }) {
+                            Text("回上一步")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .bold))
-                            Image(systemName: "arrow.right")
-                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .medium))
+                                .padding(.vertical, 18)
+                                .padding(.horizontal, 24)
                         }
-                        .padding(.vertical, 18)
-                        .padding(.horizontal, 48)
-                        .background(Color.orange)
-                        .cornerRadius(32)
+                        Spacer()
+                        Button(action: {
+                            // 檢查是否有選擇的新聞，如果有則進入下一頁
+                            if likedNewsCount > 0 {
+                                // 將喜歡的新聞保存到導航狀態
+                                navigationState.selectedNewsItems = newsItems.filter { $0.isLiked }
+                                navigationState.goToNextPage()
+                                navigateToNextScreen = true
+                            } else {
+                                // 顯示提示，要求選擇至少一則新聞
+                                alertMessage = "請至少選擇一則你喜歡的新聞"
+                                showAlert = true
+                            }
+                        }) {
+                            HStack(spacing: 8) {
+                                Text("下一步")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 16, weight: .bold))
+                                Image(systemName: "arrow.right")
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.vertical, 18)
+                            .padding(.horizontal, 48)
+                            .background(Color.orange)
+                            .cornerRadius(32)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 24)
+                }
+                
+                // 使用條件編譯提供適合不同iOS版本的導航方式
+                #if os(iOS) && compiler(>=5.5) && canImport(SwiftUI) && !(arch(i386) || arch(x86_64))
+                if #available(iOS 16.0, *) {
+                    // iOS 16+ 新導航方式
+                    NavigationLink(value: "NextScreen") {
+                        EmptyView()
+                    }
+                    .opacity(0)
+                    .navigationDestination(isPresented: $navigateToNextScreen) {
+                        FocusPointView(navigationState: navigationState)
+                    }
+                } else {
+                    // iOS 16之前的導航方式
+                    NavigationLink(
+                        destination: FocusPointView(navigationState: navigationState),
+                        isActive: $navigateToNextScreen
+                    ) {
+                        EmptyView()
                     }
                 }
-                .padding(.horizontal, 24)
-                .padding(.bottom, 24)
+                #else
+                // 較舊版本iOS
+                NavigationLink(
+                    destination: FocusPointView(navigationState: navigationState),
+                    isActive: $navigateToNextScreen
+                ) {
+                    EmptyView()
+                }
+                #endif
             }
-            
-            // 導航鏈接（實際應用中會連接到下一個頁面）
-            NavigationLink(
-                destination: Text("下一頁 - 已選擇 \(likedNewsCount) 則新聞")
-                    .foregroundColor(.white)
-                    .padding(),
-                isActive: $navigateToNextScreen
-            ) {
-                EmptyView()
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("提示"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("確定"))
+                )
             }
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("提示"),
-                message: Text(alertMessage),
-                dismissButton: .default(Text("確定"))
-            )
-        }
+            .navigationBarHidden(true)
+            }
+            #if os(iOS) && compiler(>=5.7)
+            if #available(iOS 16.0, *) {
+                // 對於iOS 16+，使用新的modifier
+            } else {
+                // 對於iOS 16之前的版本，使用舊的navigationViewStyle
+                self.navigationViewStyle(StackNavigationViewStyle())
+            }
+            #else
+            // 低於iOS 16的版本
+            .navigationViewStyle(StackNavigationViewStyle())
+            #endif
     }
     
     // 刪除新聞項目
@@ -407,12 +445,16 @@ struct NewsItemRow: View {
                     // 喜歡按鈕
                     Button(action: {
                         if !newsItem.isLiked && currentCount >= maxSelectionCount {
+                            #if os(iOS)
                             let generator = UINotificationFeedbackGenerator()
                             generator.notificationOccurred(.warning)
+                            #endif
                         } else {
                             newsItem.isLiked.toggle()
+                            #if os(iOS)
                             let impactMed = UIImpactFeedbackGenerator(style: .medium)
                             impactMed.impactOccurred()
+                            #endif
                         }
                     }) {
                         Image(systemName: newsItem.isLiked ? "heart" : "heart")
@@ -431,45 +473,9 @@ struct NewsItemRow: View {
     }
 }
 
-struct NewsDetailView: View {
-    var newsItems: [NewsItem]
-    
-    var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
-            VStack(alignment: .leading, spacing: 20) {
-                Text("已選擇的新聞")
-                    .foregroundColor(.white)
-                    .font(.system(size: 28, weight: .bold))
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        ForEach(newsItems) { item in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(item.title)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 18, weight: .semibold))
-                                
-                                HStack {
-                                    Text(item.source)
-                                        .foregroundColor(.orange)
-                                    Text("• \(item.category)")
-                                        .foregroundColor(.gray)
-                                }
-                                .font(.system(size: 14))
-                            }
-                            .padding()
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(12)
-                        }
-                    }
-                }
-            }
-            .padding(24)
-        }
+struct p40_Previews: PreviewProvider {
+    static var previews: some View {
+        p40()
+            .preferredColorScheme(.dark)
     }
-}
-
-#Preview {
-    p40()
 }
