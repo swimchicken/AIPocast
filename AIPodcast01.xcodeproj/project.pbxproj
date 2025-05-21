@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790736032DCC819C00525688 /* guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790736022DCC819C00525688 /* guide.swift */; };
 		790DD1822DC4CB4100FDFC6D /* AIPodcast01App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD1812DC4CB4100FDFC6D /* AIPodcast01App.swift */; };
 		790DD1842DC4CB4100FDFC6D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD1832DC4CB4100FDFC6D /* ContentView.swift */; };
 		790DD1862DC4CB4300FDFC6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 790DD1852DC4CB4300FDFC6D /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		790736022DCC819C00525688 /* guide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guide.swift; sourceTree = "<group>"; };
 		790DD17E2DC4CB4100FDFC6D /* AIPodcast01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIPodcast01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		790DD1812DC4CB4100FDFC6D /* AIPodcast01App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPodcast01App.swift; sourceTree = "<group>"; };
 		790DD1832DC4CB4100FDFC6D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		790735FF2DCC7E5800525688 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		790736002DCC7FC300525688 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		790736012DCC7FD400525688 /* screen */ = {
+			isa = PBXGroup;
+			children = (
+				790736022DCC819C00525688 /* guide.swift */,
+			);
+			path = screen;
+			sourceTree = "<group>";
+		};
 		790DD1752DC4CB4100FDFC6D = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +124,9 @@
 			children = (
 				EBD646F62DCEFCED00A1EE1F /* p40.swift */,
 				EBFFC88A2DD6602400304A8E /* p41.swift */,
+				790735FF2DCC7E5800525688 /* view */,
+				790736012DCC7FD400525688 /* screen */,
+				790736002DCC7FC300525688 /* model */,
 				790DD1812DC4CB4100FDFC6D /* AIPodcast01App.swift */,
 				790DD1832DC4CB4100FDFC6D /* ContentView.swift */,
 				790DD1852DC4CB4300FDFC6D /* Assets.xcassets */,
@@ -263,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				790736032DCC819C00525688 /* guide.swift in Sources */,
 				790DD1842DC4CB4100FDFC6D /* ContentView.swift in Sources */,
 				EBFFC88B2DD6602900304A8E /* p41.swift in Sources */,
 				EBD646F72DCEFCFC00A1EE1F /* p40.swift in Sources */,
