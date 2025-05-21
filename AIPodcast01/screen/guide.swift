@@ -13,7 +13,6 @@ struct guide: View {
     ]
     @State private var newGoalText: String = ""
     @State private var selectedStars: Int = 0
-//    @State private var inputStatus: Bool = false
     @FocusState private var isTextFieldFocused: Bool
     
     private let inputColor = Color(red: 1, green: 0.38, blue: 0)
@@ -106,13 +105,29 @@ struct guide: View {
                 .padding(.bottom, 35)
                 
                 VStack{
+                    
                     ForEach(labels) { goal in
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text(goal.text)
                                     .foregroundColor(.white)
                                     .font(.system(size: 20, weight: .semibold))
+                                
                                 Spacer()
+                                
+                                // Show Stars:
+                                if selectedStars > 0 {
+                                    HStack(spacing: 2) {
+                                        ForEach(0..<min(selectedStars, 6), id: \.self) { _ in
+                                            Image(systemName: "star.fill")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 12))
+                                        }
+                                    }
+                                }
+                                
+                                Spacer()
+                                
                                 Button(action: {
                                     if let idx = labels.firstIndex(of: goal) {
                                         labels.remove(at: idx)
@@ -166,6 +181,18 @@ struct guide: View {
                                                     .foregroundColor(.gray)
                                             }
                                         }
+                                        
+                                        /*
+                                         ForEach(0..<6) { index in
+                                             Button(action: {
+                                                 selectedStars = index + 1
+                                             }) {
+                                                 Image(systemName: selectedStars > index ? "star.fill" : "star")
+                                                     .foregroundColor(selectedStars > index ? .yellow : .gray)
+                                             }
+                                         }
+                                         */
+                                        
                                     }
                                     
                                     // Memo按鈕
