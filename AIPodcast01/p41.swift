@@ -91,9 +91,9 @@ struct TimeWheelView: View {
                 .onChanged { value in
                     if !isDecelerating {
                         // 計算當前拖動偏移量，添加阻尼效果
-                        let newDragValue = value.translation.height * 0.7 // 添加阻尼係數
+                        let newDragValue = value.translation.height * 0.4 // 添加阻尼係數
                         // 更新速度
-                        velocity = (newDragValue - previousDragValue) * 0.5 // 減少速度影響
+                        velocity = (newDragValue - previousDragValue) * 0.3 // 減少速度影響
                         previousDragValue = newDragValue
                         dragOffset = newDragValue
                         
@@ -209,26 +209,27 @@ struct AmPmWheelView: View {
 // 進度條組件
 struct ProgressBarView: View {
     var body: some View {
-        HStack(spacing: 8) {
-            // 橘色邊框未填充的進度條
+        HStack(spacing: 5) {
+            // #FF6200 填滿的進度條
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.orange, lineWidth: 1.5)
-                .frame(height: 4)
+                .fill(Color(hex: "FF6200"))
+                .frame(height: 10)
+                .frame(maxWidth: .infinity)
+            
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(hex: "FF6200"))
+                .frame(height: 10)
+                .frame(maxWidth: .infinity)
+            
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color(hex: "FF6200"), lineWidth: 1.5)
+                .fill(Color.gray.opacity(0.3))
+                .frame(height: 10)
                 .frame(maxWidth: .infinity)
             
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.gray.opacity(0.3))
-                .frame(height: 4)
-                .frame(maxWidth: .infinity)
-            
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.gray.opacity(0.3))
-                .frame(height: 4)
-                .frame(maxWidth: .infinity)
-            
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.gray.opacity(0.3))
-                .frame(height: 4)
+                .frame(height: 10)
                 .frame(maxWidth: .infinity)
             
             // 最右側帶勾號的灰色圓圈
@@ -242,9 +243,9 @@ struct ProgressBarView: View {
                     .foregroundColor(.white)
             }
         }
-        .padding(.top, 32)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 16)
+        .padding(.top, 30)
+        .padding(.horizontal, 20)
+        .padding(.bottom,5)
     }
 }
 
@@ -274,18 +275,21 @@ struct HeaderView: View {
 // 時長選擇器組件
 struct DurationSelectorView: View {
     @Binding var duration: String
-    @Binding var isTimeMenuExpanded: Bool
+    @Binding var isTimeMenuExpanded: Bool // 保留這個參數以免影響其他地方，但實際不會使用
     let timeOptions: [String]
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            // 標準時長選擇器
-            Button(action: {
-                // 切換下拉菜單的顯示狀態
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    isTimeMenuExpanded.toggle()
+            // 使用 Menu 組件的標準時長選擇器
+            Menu {
+                ForEach(timeOptions, id: \.self) { option in
+                    Button(action: {
+                        duration = option
+                    }) {
+                        Text(option)
+                    }
                 }
-            }) {
+            } label: {
                 HStack {
                     Text(duration)
                         .foregroundColor(.white)
@@ -293,7 +297,7 @@ struct DurationSelectorView: View {
                     
                     Spacer()
                     
-                    Image(systemName: isTimeMenuExpanded ? "chevron.up" : "chevron.down")
+                    Image(systemName: "chevron.down")
                         .foregroundColor(.white)
                 }
                 .padding(.horizontal, 19)
@@ -344,13 +348,13 @@ struct TypeSelectorView: View {
             HStack(spacing: 0) {
                 Button(action: {
                     withAnimation {
-                        selectedType = "值固本次"
+                        selectedType = "僅限本次"
                     }
                 }) {
-                    Text("值固本次")
+                    Text("僅限本次")
                         .fontWeight(.medium)
                         .frame(width: geometry.size.width / 2 - 20, height: 40)
-                        .foregroundColor(selectedType == "值固本次" ? Color.black : Color.white)
+                        .foregroundColor(selectedType == "僅限本次" ? Color.black : Color.white)
                 }
                 
                 Button(action: {
@@ -529,7 +533,7 @@ struct BottomButtonsView: View {
                 }
                 .padding(.vertical, 15)
                 .padding(.horizontal, 50)
-                .background(Color.orange)
+                .background(Color(hex: "FF6200"))
                 .cornerRadius(30)
             }
         }
@@ -549,7 +553,7 @@ struct FocusPointView: View {
     @State private var selectedDays: Set<Int> = [0]
     @State private var frequency = "每週"
     @State private var duration2 = "無"
-    @State private var isTimeMenuExpanded = false
+    @State private var isTimeMenuExpanded = false // 保留但不使用
     
     // 標準時長可選項
     let timeOptions = [
@@ -599,78 +603,8 @@ struct FocusPointView: View {
                     BottomButtonsView(navigationState: navigationState)
                 }
                 .padding(.vertical)
-                
-                // 下拉選單浮動層
-                if isTimeMenuExpanded {
-                    DropdownMenuView(
-                        isExpanded: $isTimeMenuExpanded,
-                        duration: $duration,
-                        timeOptions: timeOptions,
-                        geometry: geometry
-                    )
-                }
             }
         }
-    }
-}
-
-// 下拉選單組件
-struct DropdownMenuView: View {
-    @Binding var isExpanded: Bool
-    @Binding var duration: String
-    let timeOptions: [String]
-    let geometry: GeometryProxy
-    
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.01)
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture {
-                    withAnimation {
-                        isExpanded = false
-                    }
-                }
-            
-            VStack(alignment: .leading, spacing: 0) {
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(height: 0)
-                
-                ForEach(timeOptions.filter { $0 != duration }, id: \.self) { option in
-                    Button(action: {
-                        duration = option
-                        withAnimation {
-                            isExpanded = false
-                        }
-                    }) {
-                        HStack {
-                            Text(option)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 12)
-                            Spacer()
-                        }
-                        .padding(.horizontal, 16)
-                    }
-                    
-                    if option != timeOptions.filter { $0 != duration }.last {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 1)
-                            .padding(.horizontal, 8)
-                    }
-                }
-            }
-            .background(Color.black)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-            )
-            .frame(width: geometry.size.width - 32)
-            .position(x: geometry.size.width / 2, y: 183)
-        }
-        .transition(.opacity)
-        .zIndex(100)
     }
 }
 

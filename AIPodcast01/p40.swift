@@ -102,26 +102,27 @@ struct p40: View {
                 Color.black.ignoresSafeArea()
                 VStack(spacing: 0) {
                     // Progress bar
-                    HStack(spacing: 8) {
-                        // 橘色邊框未填充的進度條
+                    HStack(spacing: 5) {
+                        // #FF6200 填滿的進度條
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.orange, lineWidth: 1.5)
-                            .frame(height: 4)
+                            .fill(Color(hex: "FF6200"))
+                            .frame(height: 10)
+                            .frame(maxWidth: .infinity)
+                        
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(hex: "FF6200"))
+                            .frame(height: 10)
+                            .frame(maxWidth: .infinity)
+                        
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color(hex: "FF6200"), lineWidth: 1.5)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 10)
                             .frame(maxWidth: .infinity)
                         
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color.gray.opacity(0.3))
-                            .frame(height: 4)
-                            .frame(maxWidth: .infinity)
-                        
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 4)
-                            .frame(maxWidth: .infinity)
-                        
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 4)
+                            .frame(height: 10)
                             .frame(maxWidth: .infinity)
                         
                         // 最右側帶勾號的灰色圓圈
@@ -135,8 +136,8 @@ struct p40: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .padding(.top, 32)
-                    .padding(.horizontal, 24)
+                    .padding(.top, 30)
+                    .padding(.horizontal, 20)
                     .padding(.bottom, 16)
                     
                     VStack(alignment: .leading, spacing: 5) {
@@ -172,7 +173,7 @@ struct p40: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         category.isSelected ?
-                                                        Color.orange : Color.gray.opacity(0.3)
+                                                        Color(hex: "FF6200") : Color.gray.opacity(0.3)
                                                     )
                                                     .cornerRadius(8)
                                             }
@@ -207,7 +208,7 @@ struct p40: View {
                                                     .padding(.vertical, 8)
                                                     .background(
                                                         focusPoint.isSelected ?
-                                                        Color.orange : Color.gray.opacity(0.3)
+                                                        Color(hex: "FF6200") : Color.gray.opacity(0.3)
                                                     )
                                                     .cornerRadius(8)
                                             }
@@ -305,7 +306,7 @@ struct p40: View {
                             }
                             .padding(.vertical, 18)
                             .padding(.horizontal, 48)
-                            .background(Color.orange)
+                            .background(Color(hex: "FF6200"))
                             .cornerRadius(32)
                         }
                     }
@@ -400,7 +401,7 @@ struct NewsItemRow: View {
                     HStack(spacing: 6) {
                         // 來源標籤
                         Text(newsItem.source)
-                            .foregroundColor(.orange)
+                            .foregroundColor(Color(hex: "FF6200"))
                             .font(.system(size: 12, weight: .medium))
                         
                         // 帶#的標籤
@@ -410,7 +411,7 @@ struct NewsItemRow: View {
                                 .font(.system(size: 12))
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
-                                .background(Color.orange.opacity(0.3))
+                                .background(Color(hex: "FF6200").opacity(0.3))
                                 .cornerRadius(4)
                         }
                     }
