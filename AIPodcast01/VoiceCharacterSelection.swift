@@ -173,7 +173,7 @@ struct CharacterSetupView: View {
                 
                 // 導航到 p43
                 NavigationLink(
-                    destination: final_settings_summary(navigationState: navigationState),
+                    destination: FinalSettingsSummary(navigationState: navigationState),
                     isActive: $navigateToFinalSettingsSummary
                 ) {
                     EmptyView()
@@ -405,3 +405,4 @@ struct CharacterSetupView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
