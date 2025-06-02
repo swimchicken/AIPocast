@@ -196,9 +196,15 @@ struct DialogModeView: View {
         VStack(spacing: 50) {
             // 兩個角色頭像
             HStack(spacing: 30) {
-                ForEach(0..<2) { _ in
-                    CharacterAvatar()
-                }
+                // 第一個頭像 - 根據角色1和風格1的選擇狀態決定顏色
+                CharacterAvatar(
+                    backgroundColor: (navigationState.reader1Name != "請選擇角色" && navigationState.reader1Style != "請選擇風格") ? .white : Color.gray.opacity(0.3)
+                )
+                
+                // 第二個頭像 - 根據角色2和風格2的選擇狀態決定顏色
+                CharacterAvatar(
+                    backgroundColor: (navigationState.reader2Name != "請選擇角色" && navigationState.reader2Style != "請選擇風格") ? .white : Color.gray.opacity(0.3)
+                )
             }
             
             // 2x2 網格按鈕
@@ -316,9 +322,11 @@ struct SingleModeView: View {
     
     var body: some View {
         VStack(spacing: 50) {
-            // 單一角色頭像
-            CharacterAvatar()
-                .scaleEffect(1.2)
+            // 單一角色頭像 - 根據角色1和風格1的選擇狀態決定顏色
+            CharacterAvatar(
+                backgroundColor: (navigationState.reader1Name != "請選擇角色" && navigationState.reader1Style != "請選擇風格") ? .white : Color.gray.opacity(0.3)
+            )
+            .scaleEffect(1.2)
             
             // 兩個按鈕
             VStack(spacing: 12) {
@@ -373,16 +381,18 @@ struct SingleModeView: View {
     }
 }
 
-// 角色頭像視圖
+// 角色頭像視圖 - 新增背景顏色參數
 struct CharacterAvatar: View {
+    var backgroundColor: Color = Color.gray.opacity(0.3)
+    
     var body: some View {
         Circle()
-            .fill(Color.gray.opacity(0.3))
+            .fill(backgroundColor)
             .frame(width: 150, height: 150)
             .overlay(
                 // 簡單的臉部特徵
                 VStack(spacing: 20) {
-                    // 眼睛
+                    // 眼睛 - 根據背景顏色調整眼睛顏色
                     HStack(spacing: 25) {
                         RoundedRectangle(cornerRadius: 100)
                             .fill(Color.black)
@@ -405,4 +415,3 @@ struct CharacterSetupView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-

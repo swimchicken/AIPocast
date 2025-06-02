@@ -14,23 +14,6 @@ struct news＿source＿selection: View {
     // 最大可選擇的新聞數量
     private let maxSelectionCount = 20
     
-    @State private var categories: [NewsCategory] = [
-        NewsCategory(text: "國際"),
-        NewsCategory(text: "中國", isSelected: true),
-        NewsCategory(text: "緩"),
-        NewsCategory(text: "經濟廣面"),
-        NewsCategory(text: "生活日常")
-    ]
-    
-    // 關注點也使用 NewsCategory 結構體，以支持選取功能
-    @State private var focusPoints: [NewsCategory] = [
-        NewsCategory(text: "政治"),
-        NewsCategory(text: "科技"),
-        NewsCategory(text: "教育"),
-        NewsCategory(text: "環保"),
-        NewsCategory(text: "體育")
-    ]
-    
     @State private var newsItems: [NewsItem] = [
         NewsItem(title: "選龍法傳議案送出！政院盼立院受過回應各界訴求", source: "聯合報", time: 45, category: "台灣", isLiked: false),
         NewsItem(title: "中國人工智慧應用新熱點：人形機器人成為發展新戰場", source: "聯合報", time: 45, category: "台灣", isLiked: false),
@@ -47,12 +30,12 @@ struct news＿source＿selection: View {
     
     // 已選擇的分類標籤
     var selectedCategories: [NewsCategory] {
-        categories.filter { $0.isSelected }
+        navigationState.categories.filter { $0.isSelected }
     }
     
     // 已選擇的關注點
     var selectedFocusPoints: [NewsCategory] {
-        focusPoints.filter { $0.isSelected }
+        navigationState.focusPoints.filter { $0.isSelected }
     }
     
     // 根據選擇的分類和關注點篩選新聞
@@ -122,31 +105,26 @@ struct news＿source＿selection: View {
                     
                     // 主題標籤和關注點並排放置
                     HStack(spacing: 7) {
-                        // 主題標籤區塊 - 可左右滑動
+                        // 主題標籤區塊 - 可左右滑動（改為純展示）
                         VStack(alignment: .leading, spacing: 7) {
                             Text("主題標籤")
                                 .foregroundColor(.white.opacity(0.7))
                                 .font(.system(size: 11))
                             
-                            // 可滑動的主題標籤
+                            // 可滑動的主題標籤（純展示）
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
-                                    ForEach($categories) { $category in
-                                        Button(action: {
-                                            // 切換分類標籤選中狀態
-                                            category.isSelected.toggle()
-                                        }) {
-                                            Text(category.text)
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 20, weight: .medium))
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 8)
-                                                .background(
-                                                    category.isSelected ?
-                                                    Color(hex: "FF6200") : Color.gray.opacity(0.3)
-                                                )
-                                                .cornerRadius(8)
-                                        }
+                                    ForEach(navigationState.categories) { category in
+                                        Text(category.text)
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 20, weight: .medium))
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 8)
+                                            .background(
+                                                category.isSelected ?
+                                                Color(hex: "FF6200") : Color.gray.opacity(0.3)
+                                            )
+                                            .cornerRadius(8)
                                     }
                                 }
                                 .padding(.vertical, 6)
@@ -157,31 +135,26 @@ struct news＿source＿selection: View {
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(8)
                         
-                        // 關注點區塊 - 可左右滑動和選取
+                        // 關注點區塊 - 可左右滑動（改為純展示）
                         VStack(alignment: .leading, spacing: 7) {
                             Text("關注點")
                                 .foregroundColor(.white.opacity(0.7))
                                 .font(.system(size: 11))
                             
-                            // 可滑動的關注點標籤，現在可以選取
+                            // 可滑動的關注點標籤（純展示）
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
-                                    ForEach($focusPoints) { $focusPoint in
-                                        Button(action: {
-                                            // 切換關注點標籤選中狀態
-                                            focusPoint.isSelected.toggle()
-                                        }) {
-                                            Text(focusPoint.text)
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 20, weight: .medium))
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 8)
-                                                .background(
-                                                    focusPoint.isSelected ?
-                                                    Color(hex: "FF6200") : Color.gray.opacity(0.3)
-                                                )
-                                                .cornerRadius(8)
-                                        }
+                                    ForEach(navigationState.focusPoints) { focusPoint in
+                                        Text(focusPoint.text)
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 20, weight: .medium))
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 8)
+                                            .background(
+                                                focusPoint.isSelected ?
+                                                Color(hex: "FF6200") : Color.gray.opacity(0.3)
+                                            )
+                                            .cornerRadius(8)
                                     }
                                 }
                                 .padding(.vertical, 6)
@@ -262,10 +235,10 @@ struct news＿source＿selection: View {
                             navigationState.selectedNewsItems = newsItems.filter { $0.isLiked }
                             
                             // 保存選中的主題標籤
-                            navigationState.selectedCategories = categories
+                            navigationState.selectedCategories = navigationState.categories
                             
                             // 保存選中的關注點
-                            navigationState.selectedFocusPoints = focusPoints
+                            navigationState.selectedFocusPoints = navigationState.focusPoints
                             
                             print("前往 PushTimeAndPermission") // 調試信息
                             navigationState.goToNextPage()

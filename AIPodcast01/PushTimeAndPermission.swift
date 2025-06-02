@@ -68,19 +68,19 @@ struct TimeWheelView: View {
         VStack(spacing: 15) {
             // 上方第一個數字
             Text(format(getPreviousValue(from: currentValue, offset: 1)))
-                .font(.system(size: 30))
+                .font(.system(size: 30, weight: .light)) // 調細字體
                 .foregroundColor(.gray)
                 .offset(y: dragOffset * 0.3) // 減少偏移影響
             
             // 當前選中值
             Text(format(currentValue))
-                .font(.system(size: 40, weight: .bold))
+                .font(.system(size: 40, weight: .regular)) // 從 .bold 改為 .regular
                 .foregroundColor(.white)
                 .offset(y: dragOffset * 0.6) // 減少偏移影響
             
             // 下方第一個數字
             Text(format(getNextValue(from: currentValue, offset: 1)))
-                .font(.system(size: 30))
+                .font(.system(size: 30, weight: .light)) // 調細字體
                 .foregroundColor(.gray)
                 .offset(y: dragOffset * 0.3) // 減少偏移影響
         }
@@ -152,21 +152,21 @@ struct AmPmWheelView: View {
             // 當選擇PM時，AM顯示在上方
             if currentValue == "PM" {
                 Text("AM")
-                    .font(.system(size: 30))
+                    .font(.system(size: 30, weight: .light)) // 調細字體
                     .foregroundColor(.gray)
                     .offset(y: dragOffset * 0.5)
             }
             
             // 當前選項
             Text(currentValue)
-                .font(.system(size: 40, weight: .bold))
+                .font(.system(size: 40, weight: .regular)) // 從 .bold 改為 .regular
                 .foregroundColor(.white)
                 .offset(y: dragOffset)
             
             // 當選擇AM時，PM顯示在下方
             if currentValue == "AM" {
                 Text("PM")
-                    .font(.system(size: 30))
+                    .font(.system(size: 30, weight: .light)) // 調細字體
                     .foregroundColor(.gray)
                     .offset(y: dragOffset * 0.5)
             }
@@ -263,9 +263,9 @@ struct HeaderView: View {
                     .foregroundColor(.white)
             }
             
-            Text("關注點")
+            Text("推送時間")
                 .foregroundColor(.white)
-                .font(.title)
+                .font(.largeTitle)
                 .fontWeight(.bold)
         }
         .padding(.horizontal)
@@ -307,6 +307,10 @@ struct DurationSelectorView: View {
                         .stroke(Color.gray.opacity(0.5), lineWidth: 1)
                 )
             }
+            .menuOrder(.fixed) // 固定菜單顯示順序
+            .menuIndicator(.hidden) // 隱藏系統默認的菜單指示器
+            .frame(maxWidth: .infinity, alignment: .trailing) // 讓菜單容器靠右對齊
+            
             
             // 內容預覽文本浮動在灰線上
             Text("內容時長")
@@ -347,13 +351,13 @@ struct TypeSelectorView: View {
             HStack(spacing: 0) {
                 Button(action: {
                     withAnimation {
-                        selectedType = "值固本次"
+                        selectedType = "僅限本次"
                     }
                 }) {
-                    Text("值固本次")
+                    Text("僅限本次")
                         .fontWeight(.medium)
                         .frame(width: geometry.size.width / 2 - 20, height: 40)
-                        .foregroundColor(selectedType == "值固本次" ? Color.black : Color.white)
+                        .foregroundColor(selectedType == "僅限本次" ? Color.black : Color.white)
                 }
                 
                 Button(action: {
@@ -398,7 +402,7 @@ struct TimePickerView: View {
                     
                     // 冒號
                     Text(":")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 40, weight: .regular)) // 從 .bold 改為 .regular
                         .foregroundColor(.white)
                         .frame(width: 20)
                         .offset(y: -5)
@@ -503,6 +507,55 @@ struct SettingItemView: View {
     }
 }
 
+// 可選擇的設定項目組件
+struct SelectableSettingItemView: View {
+    let title: String
+    @Binding var selectedValue: String
+    let options: [String]
+    
+    var body: some View {
+        Menu {
+            ForEach(options, id: \.self) { option in
+                Button(action: {
+                    selectedValue = option
+                }) {
+                    HStack {
+                        Text(option)
+                        Spacer()
+                        if selectedValue == option {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        } label: {
+            HStack {
+                Text(title)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                HStack(spacing: 5) {
+                    Text(selectedValue)
+                        .foregroundColor(.white)
+                    
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.white)
+                        .font(.system(size: 12))
+                }
+            }
+            .padding()
+            .background(Color.gray.opacity(0.3))
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+            )
+        }
+        .padding(.horizontal)
+    }
+}
+
 // 底部按鈕組件
 struct BottomButtonsView: View {
     let navigationState: NavigationState
@@ -546,6 +599,9 @@ struct FocusPointView: View {
     @ObservedObject var navigationState: NavigationState
     @State private var navigateToVoiceCharacterSelection = false
     
+    // 循環單位選擇選項
+    let cycleOptions = ["每週", "每日"]
+    
     // 標準時長可選項
     let timeOptions = [
         "短篇形式 （5-10分鐘）",
@@ -580,12 +636,28 @@ struct FocusPointView: View {
                         selectedAmPm: $navigationState.selectedAmPm
                     )
                     
-                    WeekSelectorView(
-                        selectedDays: $navigationState.selectedDays,
-                        dayLabels: dayLabels
+                    // 星期選擇器容器 - 保持固定高度以避免布局跳動
+                    ZStack {
+                        // 固定高度的透明容器，高度與WeekSelectorView一致
+                        Rectangle()
+                            .fill(Color.clear)
+                            .frame(height: 40) // 與WeekSelectorView的高度一致
+                        
+                        // 只有選擇「每週」時才顯示星期選擇器
+                        if navigationState.frequency == "每週" {
+                            WeekSelectorView(
+                                selectedDays: $navigationState.selectedDays,
+                                dayLabels: dayLabels
+                            )
+                        }
+                    }
+                    
+                    SelectableSettingItemView(
+                        title: "循環單位",
+                        selectedValue: $navigationState.frequency,
+                        options: cycleOptions
                     )
                     
-                    SettingItemView(title: "循環單位", value: navigationState.frequency)
                     SettingItemView(title: "期限", value: navigationState.duration2)
                     
                     Spacer()

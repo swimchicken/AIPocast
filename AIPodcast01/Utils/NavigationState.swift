@@ -19,6 +19,23 @@ struct NewsItem: Identifiable, Hashable {
 class NavigationState: ObservableObject {
     @Published var currentPage: Int = 1
     
+    // 後端寫死的主題標籤數據
+    @Published var categories: [NewsCategory] = [
+        NewsCategory(text: "國際"),
+        NewsCategory(text: "中國"),
+        NewsCategory(text: "經濟廣面"),
+        NewsCategory(text: "生活日常")
+    ]
+    
+    // 後端寫死的關注點數據
+    @Published var focusPoints: [NewsCategory] = [
+        NewsCategory(text: "政治"),
+        NewsCategory(text: "科技"),
+        NewsCategory(text: "教育"),
+        NewsCategory(text: "環保"),
+        NewsCategory(text: "體育")
+    ]
+    
     // p40 的選擇項目
     @Published var selectedNewsItems: [NewsItem] = []
     @Published var selectedCategories: [NewsCategory] = []
@@ -31,7 +48,7 @@ class NavigationState: ObservableObject {
     @Published var selectedMinute: Int = 0
     @Published var selectedAmPm: String = "PM"
     @Published var selectedDays: Set<Int> = [0]
-    @Published var frequency: String = "每週"
+    @Published var frequency: String = "每週" // 現在可以是 "每週" 或 "每日"
     @Published var duration2: String = "無"
     
     // p42 的選擇項目（角色設定）
@@ -61,8 +78,9 @@ class NavigationState: ObservableObject {
         return selectedFocusPoints.filter { $0.isSelected }.map { $0.text }
     }
     
-    // 便利方法來取得選中的星期
+    // 便利方法來取得選中的星期 - 只有當頻率是"每週"時才返回星期
     var selectedDayNames: [String] {
+        guard frequency == "每週" else { return [] }
         let dayLabels = ["一", "二", "三", "四", "五", "六", "日"]
         return selectedDays.compactMap { dayLabels[$0] }
     }
@@ -70,5 +88,15 @@ class NavigationState: ObservableObject {
     // 便利方法來取得完整的時間字串
     var formattedTime: String {
         return "\(selectedHour):\(String(format: "%02d", selectedMinute)) \(selectedAmPm)"
+    }
+    
+    // 新增：取得完整的排程描述
+    var scheduleDescription: String {
+        if frequency == "每日" {
+            return "每日 \(formattedTime)"
+        } else {
+            let days = selectedDayNames.joined(separator: "、")
+            return "每週\(days) \(formattedTime)"
+        }
     }
 }
