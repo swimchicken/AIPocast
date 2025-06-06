@@ -4,7 +4,7 @@ import SwiftUI
 // For this example, I'm assuming it's available or you'll copy it from guide.swift.
 // struct ChatLabel: Identifiable, Hashable { ... }
 
-struct guide2: View {
+struct AdditionalTagsAndInterests: View {
     // State variables for guide2
     @State private var labels: [ChatLabel] = [
         // Example: Pre-populate if needed, like in the screenshot
@@ -364,6 +364,6 @@ struct guide3: View { // You'll need to create guide3.swift
     // To preview guide2 correctly, embed it in a NavigationView if it relies on @Environment(\.dismiss)
     // or is meant to be pushed.
     NavigationView {
-        guide2()
+        AdditionalTagsAndInterests()
     }
 }

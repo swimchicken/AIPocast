@@ -9,7 +9,7 @@ struct ChatLabel: Identifiable, Hashable {
     var memo: String?
 }
 
-struct guide: View {
+struct TopicTagsInput: View {
     @State private var labels: [ChatLabel] = [
         ChatLabel(text: "new year card", time: nil),
     ]
@@ -142,7 +142,7 @@ struct guide: View {
                     // Navigation Buttons (remains the same)
                     HStack (spacing: 25){
                         Button(action: {}) { Text("回上一步").foregroundColor(.white).font(.system(size: 16, weight: .medium)) }
-                        NavigationLink(destination: guide2().navigationBarHidden(true).navigationBarBackButtonHidden(true)) {
+                        NavigationLink(destination: AdditionalTagsAndInterests().navigationBarHidden(true).navigationBarBackButtonHidden(true)) {
                             HStack(alignment: .center) {
                                 Text("下一步").foregroundColor(.white).font(.system(size: 18, weight: .bold))
                                 Image(systemName: "arrow.right").foregroundColor(.white)
@@ -253,5 +253,5 @@ struct guide: View {
 }
 
 #Preview {
-    guide()
+    TopicTagsInput()
 }
