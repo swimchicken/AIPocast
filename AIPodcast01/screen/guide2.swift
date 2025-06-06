@@ -231,7 +231,7 @@ struct guide2: View {
                             .font(.system(size: 16, weight: .medium))
                     }
 
-                    NavigationLink(destination: p40() // <<<< Navigate to guide3
+                    NavigationLink(destination: news＿source＿selection()
                                     .navigationBarHidden(true)
                                     .navigationBarBackButtonHidden(true)
                     ) {
