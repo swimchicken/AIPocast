@@ -16,6 +16,8 @@
 		790DD19D2DC4CB4300FDFC6D /* AIPodcast01UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD19C2DC4CB4300FDFC6D /* AIPodcast01UITests.swift */; };
 		790DD19F2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DD19E2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift */; };
 		7912A2422DE593D3001CA0DC /* AdditionalTagsAndInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912A2412DE593D3001CA0DC /* AdditionalTagsAndInterests.swift */; };
+		EB98318B2E015B0000D855FB /* AIPodcast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB9831892E015B0000D855FB /* AIPodcast.xcdatamodeld */; };
+		EB98318D2E015DB800D855FB /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB98318C2E015DB800D855FB /* PersistenceController.swift */; };
 		EBD65BB42DE59C2900952EA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65BB32DE59C1A00952EA3 /* Extensions.swift */; };
 		EBD65BB92DE6FF6C00952EA3 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65BB82DE6FF5F00952EA3 /* NavigationState.swift */; };
 		EBD65BC82DEC2E3400952EA3 /* VoiceCharacterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD65BC72DEC2E1D00952EA3 /* VoiceCharacterSelection.swift */; };
@@ -54,14 +56,14 @@
 		790DD19C2DC4CB4300FDFC6D /* AIPodcast01UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPodcast01UITests.swift; sourceTree = "<group>"; };
 		790DD19E2DC4CB4300FDFC6D /* AIPodcast01UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPodcast01UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7912A2412DE593D3001CA0DC /* AdditionalTagsAndInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalTagsAndInterests.swift; sourceTree = "<group>"; };
-		EBD646F62DCEFCED00A1EE1F /* p40.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = p40.swift; sourceTree = "<group>"; };
+		EB98318A2E015B0000D855FB /* AIPodcast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AIPodcast.xcdatamodel; sourceTree = "<group>"; };
+		EB98318C2E015DB800D855FB /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = AIPodcast01/PersistenceController.swift; sourceTree = SOURCE_ROOT; };
 		EBD65BB32DE59C1A00952EA3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EBD65BB82DE6FF5F00952EA3 /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
 		EBD65BC72DEC2E1D00952EA3 /* VoiceCharacterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCharacterSelection.swift; sourceTree = "<group>"; };
 		EBD65BC92DEC2E6400952EA3 /* FinalSettingsSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalSettingsSummary.swift; sourceTree = "<group>"; };
 		EBD65BCB2DEC2E9F00952EA3 /* PushTimeAndPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTimeAndPermission.swift; sourceTree = "<group>"; };
 		EBD65BCD2DEC2F3900952EA3 /* NewsSourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSourceSelection.swift; sourceTree = "<group>"; };
-		EBFFC88A2DD6602400304A8E /* p41.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = p41.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,8 @@
 		790736002DCC7FC300525688 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				EB9831892E015B0000D855FB /* AIPodcast.xcdatamodeld */,
+				EB98318C2E015DB800D855FB /* PersistenceController.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -135,8 +139,6 @@
 		790DD1802DC4CB4100FDFC6D /* AIPodcast01 */ = {
 			isa = PBXGroup;
 			children = (
-				EBD646F62DCEFCED00A1EE1F /* p40.swift */,
-				EBFFC88A2DD6602400304A8E /* p41.swift */,
 				790735FF2DCC7E5800525688 /* view */,
 				790736012DCC7FD400525688 /* screen */,
 				790736002DCC7FC300525688 /* model */,
@@ -319,6 +321,8 @@
 			files = (
 				790736032DCC819C00525688 /* TopicTagsInput.swift in Sources */,
 				7912A2422DE593D3001CA0DC /* AdditionalTagsAndInterests.swift in Sources */,
+				EB98318B2E015B0000D855FB /* AIPodcast.xcdatamodeld in Sources */,
+				EB98318D2E015DB800D855FB /* PersistenceController.swift in Sources */,
 				EBD65BCC2DEC2EB000952EA3 /* PushTimeAndPermission.swift in Sources */,
 				EBD65BCA2DEC2E6600952EA3 /* FinalSettingsSummary.swift in Sources */,
 				EBD65BB92DE6FF6C00952EA3 /* NavigationState.swift in Sources */,
@@ -656,6 +660,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EB9831892E015B0000D855FB /* AIPodcast.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EB98318A2E015B0000D855FB /* AIPodcast.xcdatamodel */,
+			);
+			currentVersion = EB98318A2E015B0000D855FB /* AIPodcast.xcdatamodel */;
+			name = AIPodcast.xcdatamodeld;
+			path = AIPodcast01/AIPodcast.xcdatamodeld;
+			sourceTree = SOURCE_ROOT;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 790DD1762DC4CB4100FDFC6D /* Project object */;
 }

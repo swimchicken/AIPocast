@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct AIPodcast01App: App {
+    // Core Data 容器
+    let persistenceController = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            TopicTagsInput()
+            ContentView()
+                .environment(\.managedObjectContext,
+                           persistenceController.container.viewContext)
         }
     }
 }
