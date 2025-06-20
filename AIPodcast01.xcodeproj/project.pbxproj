@@ -360,6 +360,8 @@
 			files = (
 				790736032DCC819C00525688 /* TopicTagsInput.swift in Sources */,
 				7912A2422DE593D3001CA0DC /* AdditionalTagsAndInterests.swift in Sources */,
+				EB98318B2E015B0000D855FB /* AIPodcast.xcdatamodeld in Sources */,
+				EB98318D2E015DB800D855FB /* PersistenceController.swift in Sources */,
 				EBD65BCC2DEC2EB000952EA3 /* PushTimeAndPermission.swift in Sources */,
 				EBD65BCA2DEC2E6600952EA3 /* FinalSettingsSummary.swift in Sources */,
 				EBD65BB92DE6FF6C00952EA3 /* NavigationState.swift in Sources */,
