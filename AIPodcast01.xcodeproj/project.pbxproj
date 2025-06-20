@@ -136,7 +136,6 @@
 		790DD1752DC4CB4100FDFC6D = {
 			isa = PBXGroup;
 			children = (
-				7916F6832E055A550093F95E /* GoogleService-Info.plist */,
 				790DD1802DC4CB4100FDFC6D /* AIPodcast01 */,
 				790DD1912DC4CB4300FDFC6D /* AIPodcast01Tests */,
 				790DD19B2DC4CB4300FDFC6D /* AIPodcast01UITests */,
@@ -158,6 +157,7 @@
 		790DD1802DC4CB4100FDFC6D /* AIPodcast01 */ = {
 			isa = PBXGroup;
 			children = (
+				7916F6832E055A550093F95E /* GoogleService-Info.plist */,
 				7916F6872E055B660093F95E /* Info.plist */,
 				EBD646F62DCEFCED00A1EE1F /* p40.swift */,
 				EBFFC88A2DD6602400304A8E /* p41.swift */,
@@ -360,8 +360,6 @@
 			files = (
 				790736032DCC819C00525688 /* TopicTagsInput.swift in Sources */,
 				7912A2422DE593D3001CA0DC /* AdditionalTagsAndInterests.swift in Sources */,
-				EB98318B2E015B0000D855FB /* AIPodcast.xcdatamodeld in Sources */,
-				EB98318D2E015DB800D855FB /* PersistenceController.swift in Sources */,
 				EBD65BCC2DEC2EB000952EA3 /* PushTimeAndPermission.swift in Sources */,
 				EBD65BCA2DEC2E6600952EA3 /* FinalSettingsSummary.swift in Sources */,
 				EBD65BB92DE6FF6C00952EA3 /* NavigationState.swift in Sources */,
